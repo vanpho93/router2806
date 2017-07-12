@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Main from './components/Main';
+import Screen from './components/Screen';
 
 ReactDOM.render(
-    <Main />,
+    <Screen />,
     document.getElementById('root') // eslint-disable-line
 );
