@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Link } from 'react-router-dom';
+import { HashRouter, Route, Link, Redirect } from 'react-router-dom';
+
+let isAuthendicated = false;
 
 const Home = () => (
     <div>
@@ -20,7 +22,13 @@ export default class Screen extends Component {
                 <div>
                     <Route path="/" exact component={Home} />
                     <Route path="/public" component={Public} />
-                    <Route path="/private" component={Private} />
+                    <Route 
+                        path="/private" 
+                        render={() => {
+                            if (isAuthendicated) return <Private />;
+                            return <Redirect to="/" />;
+                        }}
+                    />
                 </div>
             </HashRouter>
         );

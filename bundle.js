@@ -25759,6 +25759,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var isAuthendicated = false;
+
 var Home = function Home() {
     return _react2.default.createElement(
         'div',
@@ -25818,7 +25820,13 @@ var Screen = function (_Component) {
                     null,
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: Home }),
                     _react2.default.createElement(_reactRouterDom.Route, { path: '/public', component: Public }),
-                    _react2.default.createElement(_reactRouterDom.Route, { path: '/private', component: Private })
+                    _react2.default.createElement(_reactRouterDom.Route, {
+                        path: '/private',
+                        render: function render() {
+                            if (isAuthendicated) return _react2.default.createElement(Private, null);
+                            return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
+                        }
+                    })
                 )
             );
         }
