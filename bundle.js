@@ -25767,6 +25767,10 @@ var _Home = __webpack_require__(226);
 
 var _Home2 = _interopRequireDefault(_Home);
 
+var _Private = __webpack_require__(265);
+
+var _Private2 = _interopRequireDefault(_Private);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25780,13 +25784,6 @@ var Public = function Public() {
         'h1',
         null,
         'Public Page'
-    );
-};
-var Private = function Private() {
-    return _react2.default.createElement(
-        'h1',
-        null,
-        'Private'
     );
 };
 
@@ -25815,7 +25812,7 @@ var Screen = function (_Component) {
                     _react2.default.createElement(_reactRouterDom.Route, {
                         path: '/private',
                         render: function render() {
-                            if (_this2.props.isAuthendicated) return _react2.default.createElement(Private, null);
+                            if (_this2.props.isAuthendicated) return _react2.default.createElement(_Private2.default, null);
                             return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
                         }
                     })
@@ -25852,6 +25849,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(214);
 
+var _reactRedux = __webpack_require__(253);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25870,6 +25869,11 @@ var Home = function (_Component) {
     }
 
     _createClass(Home, [{
+        key: 'onSignIn',
+        value: function onSignIn() {
+            this.props.dispatch({ type: 'SIGN_IN' });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -25891,6 +25895,12 @@ var Home = function (_Component) {
                     _reactRouterDom.Link,
                     { to: '/private' },
                     'Go to private page'
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.onSignIn.bind(this) },
+                    'Sign In'
                 )
             );
         }
@@ -25899,7 +25909,7 @@ var Home = function (_Component) {
     return Home;
 }(_react.Component);
 
-exports.default = Home;
+exports.default = (0, _reactRedux.connect)()(Home);
 
 /***/ }),
 /* 227 */
@@ -28001,17 +28011,85 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(259);
 
-var defaultState = { isAuthendicated: true };
+var defaultState = { isAuthendicated: false };
 
 var reducer = function reducer() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
     var action = arguments[1];
 
+    if (action.type === 'SIGN_IN') return { isAuthendicated: true };
+    if (action.type === 'SIGN_OUT') return { isAuthendicated: false };
     return state;
 };
 
 var store = (0, _redux.createStore)(reducer);
 exports.default = store;
+
+/***/ }),
+/* 265 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(49);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(253);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Private = function (_Component) {
+    _inherits(Private, _Component);
+
+    function Private() {
+        _classCallCheck(this, Private);
+
+        return _possibleConstructorReturn(this, (Private.__proto__ || Object.getPrototypeOf(Private)).apply(this, arguments));
+    }
+
+    _createClass(Private, [{
+        key: 'onSignOut',
+        value: function onSignOut() {
+            this.props.dispatch({ type: 'SIGN_OUT' });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    'Private Component'
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.onSignOut.bind(this) },
+                    'Sign Out'
+                )
+            );
+        }
+    }]);
+
+    return Private;
+}(_react.Component);
+
+exports.default = (0, _reactRedux.connect)()(Private);
 
 /***/ })
 /******/ ]);

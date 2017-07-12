@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { HashRouter, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Home from './Home';
+import Private from './Private';
 
 const Public = () => <h1>Public Page</h1>;
-const Private = () => <h1>Private</h1>;
 
 class Screen extends Component {
     render() {

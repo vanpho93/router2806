@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class Home extends Component {
+class Home extends Component {
+    onSignIn() {
+        this.props.dispatch({ type: 'SIGN_IN' });
+    }
+
     render() {
         return (
             <div>
@@ -9,7 +14,11 @@ export default class Home extends Component {
                 <Link to="/public">Go to public page</Link>
                 <br /><br />
                 <Link to="/private">Go to private page</Link>
+                <br />
+                <button onClick={this.onSignIn.bind(this)}>Sign In</button>
             </div>
         );
     }
 }
+
+export default connect()(Home);
